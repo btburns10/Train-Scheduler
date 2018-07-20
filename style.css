@@ -1,21 +1,77 @@
 body {
-    background-image: 
+    background-image: url("train-background.jpg");
+    background-size: cover;
+    background-position-y: 6%;
 }
 
-header {
-    height: 15vh;
-    margin-bottom: 3vh;
+.jumbotron {
+    position: relative;
+    background: rgba(26, 26, 26, 0.3);
+    color: white;
+    height: 20vh;
+    font-family: 'Anton', sans-serif;
  }
 
- input {
+h1 {
+    position: absolute;
+    left: 33%;
+    top: 30%;
+    font-size: 50px;
+    
+}
+
+.main-div {
+     margin: 0 auto;
+}
+
+#schedule {
+    height: 40vh;
+    overflow: auto;
+}
+
+input {
      width: 100%;
- }
+}
 
- tr{
+tr{
     border-bottom: 2px lightgray solid;
     line-height: 30px;
+}
+
+tr:nth-child(even) {
+     background: rgba(230, 247, 255, 0.5);
+}
+
+.remove-btn {
+    border-radius: 4px;
+}
+
+.card-header {
+    background: rgb(122, 174, 254);
+    font-size: 26px;
+}
+
+p:first-of-type {
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0.7rem;
+    margin-bottom: 0.35rem;
+}
+
+#addTrain {
+     margin-top: 2vh;
+     width: 25%;
  }
 
- tr:nth-child(even) {
-     background: lightskyblue;
+ footer {
+     height: 15vh;
+     text-align: center;
+     position: relative;
+ }
+
+ #copyright {
+     position: absolute;
+     bottom: 15%;
  }
