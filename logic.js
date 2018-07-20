@@ -21,71 +21,56 @@ function addTrain(name, destination, time, frequency) {
     this.frequency = parseFloat(frequency)
 }
 
+//event handler to grab user input in form
 $("#addTrain").on("click", function(event) {
 
     event.preventDefault();
 
+    var firstTime = moment($("#trainTime").val().trim(), "HH:mm").format("X");
+
     var newTrain = new addTrain(
         $("#newTrainName").val().trim(),
         $("#newDestination").val().trim(),
-        $("#trainTime").val().trim(),
+        firstTime,
         $("#frequency").val().trim()
     );
 
     trainSchedule.push(newTrain);
+    console.log(newTrain);
 
     $("#newTrainName").val("");
     $("#newDestination").val("");
     $("#trainTime").val("");
-    $("#frequency").val("");
-
-    
+    $("#frequency").val("");  
     
 })
 
+trainSchedule.on("child_added", function(snapshot) {
+    var info = snapshot.val();
 
+    var dbFirstTime = info.firstTime;
+    var tRemainder = moment().diff(moment.unix(dbFirstTime), "minutes") % info.frequency;
+    var minutes = info.frequency - tRemainder;
+    var nextArrival = moment().add(minutes, "m").format("hh:mm A");
+
+    var tr = $("<tr>").attr("keyID", snapshot.key);
+    var tdName = $("<td>").html(info.name);
+    var tdDest = $("<td>").html(info.destination);
+    var tdFreq = $("<td>").html(info.frequency);
+    var tdFirstTime = $("<td>").html(nextArrival);
+    var tdMinAway = $("<td>").html(minutes);
+    var removeBtn = $("<button>").text("remove").attr("keyId", snapshot.key).addClass("remove-btn");
+    tr.append(tdName, tdDest, tdFreq, tdFirstTime, tdMinAway, removeBtn);
+    $("#trainTable").append(tr);
+})
+
+//event handler for deleting selected row
+$(document).on("click", ".remove-btn", function() {
+    var keyID = $(this).attr("keyID");
+    $(this).parent().attr("keyID", keyID).empty();
+    trainSchedule.child(keyID).remove();
 })
 
 
 
-
-
-
-// var trains = [];
-
-// $("#submit-btn").on("click", function(event) {
-
-//     event.preventDefault();
-
-//     $("#train-table").empty();
-
-//     var trainName = $("#train-name").val().trim();
-//     var destination = $("#destination").val().trim();
-//     var firstTrainTime = $("#first-train-time").val().trim();
-//     var frequency = $("#frequency").val().trim();
-
-//     trains.push({
-//         name: trainName,
-//         destination: destination,
-//         firstTrainTime: firstTrainTime,
-//         frequency: frequency });
-
-//     console.log(trains);
-
-//     for(var i = 0; i < trains.length; i++) {
-
-//         var tr = $("<tr>");
-//         var tdName = $("<td>").text(trains[i].name);
-//         var tdDest = $("<td>").text(trains[i].destination);
-//         var tdTime = $("<td>").text(trains[i].firstTrainTime);
-//         var tdFreq = $("<td>").text(trains[i].frequency);
-//         tr.append(tdName, tdDest, tdTime, tdFreq);
-//         $("#train-table").append(tr);
-//     }
-
-//     $("#train-name").val("");
-//     $("#destination").val("");
-//     $("#first-train-time").val("");
-//     $("#frequency").val("");
-    
-// }) 
+})

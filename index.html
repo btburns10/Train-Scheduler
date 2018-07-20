@@ -27,10 +27,9 @@
        <div class="card" id="schedule">
            <div class="card-header bg-primary text-white scheduleHeader">
                <h5> Current Trian Schedule </h5>
-               <button class= "btn btn-light" id="clearSchedule">Clear Schedule</button>
            </div>
            <div class="card-body">
-               <table id="timesheetTable" style="width: 100%">
+               <table id="trainTable" style="width: 100%">
                    <tr>
                        <th class="tableLabel"> Train Name </th>
                        <th class="tableLabel"> Destination </th>
@@ -50,7 +49,7 @@
                <input type="" id="newDestination">
                <p> First Train Time (HH:mm)</p>
                <input type="text" id="trainTime">
-               <p> Frequency </p>
+               <p> Frequency (min) </p>
                <input type="text" id="frequency">
                <input type="submit" id="addTrain" class="btn btn-primary">
            </form>

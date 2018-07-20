@@ -1,3 +1,7 @@
+body {
+    background-image: 
+}
+
 header {
     height: 15vh;
     margin-bottom: 3vh;
@@ -5,4 +9,13 @@ header {
 
  input {
      width: 100%;
+ }
+
+ tr{
+    border-bottom: 2px lightgray solid;
+    line-height: 30px;
+ }
+
+ tr:nth-child(even) {
+     background: lightskyblue;
  }
