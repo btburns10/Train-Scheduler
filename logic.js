@@ -10,7 +10,7 @@ firebase.initializeApp({
     messagingSenderId: "833206723692"
 });
 
-//create folders
+//create folder in firebase
 var trainSchedule = firebase.database().ref("trainInfo");
 
 //constructor function to add new train
@@ -21,7 +21,7 @@ function addTrain(name, destination, time, frequency) {
     this.frequency = parseFloat(frequency)
 }
 
-//event handler to grab user input in form
+//event handler to grab user input from form when user clicks submit button with id #addTrain
 $("#addTrain").on("click", function(event) {
 
     event.preventDefault();
@@ -35,8 +35,8 @@ $("#addTrain").on("click", function(event) {
         $("#frequency").val().trim()
     );
 
+    //push form input into firebase as a new child
     trainSchedule.push(newTrain);
-    console.log(newTrain);
 
     $("#newTrainName").val("");
     $("#newDestination").val("");
@@ -45,6 +45,7 @@ $("#addTrain").on("click", function(event) {
     
 })
 
+//callback function on firebase ref 'trainSchedule' when a new child is added
 trainSchedule.on("child_added", function(snapshot) {
     var info = snapshot.val();
 
@@ -70,7 +71,6 @@ $(document).on("click", ".remove-btn", function() {
     $(this).parent().attr("keyID", keyID).empty();
     trainSchedule.child(keyID).remove();
 })
-
 
 
 })
